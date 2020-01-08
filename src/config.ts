@@ -40,7 +40,7 @@ export class config {
         return this;
     }
     static create(path?: string) {
-        const dir = __dirname.includes('node_modules') ? __dirname.split('node_modules').shift() : __dirname
+        const dir = process.cwd() + "/config/"
         return new config(path || ph.resolve(`${dir}/config.${process.env.NODE_ENV || 'dev'}.yaml`)).init()
     }
     private build = (conf: Partial<ConfigInterface>) => {
