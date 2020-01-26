@@ -13,5 +13,4 @@ import { config } from "config";
     ],
     exports: [config]
 })
-class NestConfigModule {}
-export default NestConfigModule
+export class NestConfigModule {}

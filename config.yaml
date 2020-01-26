@@ -1,6 +1,2 @@
-nacos:
-  address: nacos-headless.default.svc.cluster.local
-  port: 8848
-  group: DEFAULT_GROUP
-  namespace: 1fbc0d79-85d3-40a4-b2c7-a0b416c48fa1
-  name: gateway.yaml
+redis:
+  host: 127.0.0.1

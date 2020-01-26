@@ -1,3 +1,4 @@
+
 import { Observable, of, from, concat } from "rxjs";
 import * as yaml from 'yamljs'
 import * as fs from 'fs'
@@ -63,12 +64,12 @@ export class config {
     private static yaml2Json = (str: string) =>
         yaml.parse(str);
     private static createNacosClient = (option: NacosOption) =>
-        new NacosConfigClient({
+        (option&&option.address&&option.port&&option.namespace)?new NacosConfigClient({
             serverAddr: `${option.address}:${option.port}`,
             namespace: option.namespace
-        })
+        }):null
     private static getNacosConfig = (client: NacosConfigClient, option: NacosOption) =>
-        from(client.getConfig(option.name, option.group)).pipe(map(config.yaml2Json)) as Observable<Partial<ConfigInterface>>
+       client? from(client.getConfig(option.name, option.group)).pipe(map(config.yaml2Json)):of({}) as Observable<Partial<ConfigInterface>>
     private static createConfigInterface = (conf: Partial<ConfigInterface>) =>
         (fromPairs)(config.toEntries(JSON.parse(JSON.stringify(conf)))) as unknown as ConfigInterface
     private static toEntries = (obj: any, type: SimpleType = SimpleType.Object, parent: string = null) => {
